@@ -33,13 +33,13 @@ public class BusinessController {
     //@DateTimeFormat(pattern = "yyyy-mm-dd")@RequestParam(value = "date") Date date,
     @GetMapping("/allBusiness")
     public ResponseEntity<List<BusinessDetails>> getAllBusiness(
-            @RequestParam(value = "date") String date,
-            @RequestParam(value = "serviceTypeId") String serviceTypeId,
-            @RequestParam(value = "genderServiceTypeId") String genderServiceTypeId,
-            @RequestParam(value = "longitude") String  longitude,
-            @RequestParam(value = "latitude") String  latitude,
-            @RequestParam(value = "distance") String distance,
-            @RequestParam(value = "sort") String sort){
+            @RequestParam(value = "date", defaultValue = "", required = false) String date,
+            @RequestParam(value = "serviceTypeId", defaultValue = "", required = false) String serviceTypeId,
+            @RequestParam(value = "genderServiceTypeId", defaultValue = "", required = false) String genderServiceTypeId,
+            @RequestParam(value = "longitude", defaultValue = "", required = false) String  longitude,
+            @RequestParam(value = "latitude", defaultValue = "", required = false) String  latitude,
+            @RequestParam(value = "distance", defaultValue = "", required = false) String distance,
+            @RequestParam(value = "sort", defaultValue = "", required = false) String sort){
         return businessDetailsService.searchBusiness(date,serviceTypeId, genderServiceTypeId, longitude, latitude, distance, sort);
     }
 
