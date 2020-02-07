@@ -16,8 +16,8 @@ public interface BusinessDetailsRepository extends JpaRepository<BusinessDetails
     @Query("select a from BusinessDetails a, Services s, ServiceForGender sg, ServiceHours sh " +
             " where a.businessId = s.businessDetails.businessId and a.businessId = sh.businessDetails.businessId and s.serviceGenderId = sg.serviceGenderId and (?1 = 0 or sg.serviceTypeId = ?1) and (?2 = 0 or s.serviceGenderId = ?2) " +
 //            " and (?7 = 'mon' or (sh.monStart is not null and sh.monEnd is not null))" +
-            " and ((?3 <= 0.0 or ?4 <= 0.0 or ?5 <= 0.0) or ( (6371 * acos(cos(radians(?3) ) * cos(radians(a.latitude)) * cos(radians(a.longitude) - radians(?4) ) + sin(radians(?3)) * sin(radians(a.latitude) ) ) ) < ?5 )) " +
-            "order by case when (?3 > 0.0 and ?4 > 0.0 and ?5 > 0.0 and ?6 = 'distance') then (6371 * acos(cos(radians(?3) ) * cos(radians(a.latitude)) * cos(radians(a.longitude) - radians(?4) ) + sin(radians(?3)) * sin(radians(a.latitude) ) ) ) end asc" +
+            " and ((?3 <= 0.0 or ?4 <= 0.0 or ?5 <= 0.0) or ( (3959 * acos(cos(radians(?3) ) * cos(radians(a.latitude)) * cos(radians(a.longitude) - radians(?4) ) + sin(radians(?3)) * sin(radians(a.latitude) ) ) ) < ?5 )) " +
+            "order by case when (?3 > 0.0 and ?4 > 0.0 and ?6 = 'distance') then (3959 * acos(cos(radians(?3) ) * cos(radians(a.latitude)) * cos(radians(a.longitude) - radians(?4) ) + sin(radians(?3)) * sin(radians(a.latitude) ) ) ) end asc" +
             ", case when ?6 = 'Price' then s.serviceCost end asc")
     List<BusinessDetails> searchBusiness(int serviceTypeId, int genderServiceId, double latitude, double longitude, double distance, String sort, String day);
 }
